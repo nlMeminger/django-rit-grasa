@@ -1,8 +1,9 @@
 # Local development container. Includes development dependencies.
-FROM python:3.6
+# Not to be used in production environment (yet).
+FROM python:3.6-stretch
 
-WORKDIR /usr/src/app
-COPY . /usr/src/app
+WORKDIR /app
+COPY . /app
 
 RUN apt-get --yes update \
     && apt-get --yes upgrade \
@@ -11,4 +12,5 @@ RUN apt-get --yes update \
 RUN pipenv install --system --deploy --dev
 
 EXPOSE 8000
+
 CMD ["python3", "manage.py", "runserver", "0.0.0.0:8000"]

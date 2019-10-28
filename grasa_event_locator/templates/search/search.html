@@ -1,0 +1,230 @@
+{% include "header.php" %}
+<!-- Homepage -->
+
+<div class="home-container">
+    <form method="get" action=".">
+        <div class="row">
+            <div class="col-md-6 search-col-fix">
+                <!-- search results column-->
+                <div class="row search-row"><!-- search bar row-->
+                    <div class="filter-alert alert alert-danger alert-dismissible fade show w-100" role="alert">
+                      Filters Cleared
+                    </div>
+                    <div class="input-group mb-3 search-bar">
+                      {{ form.q }}
+                      <div class="input-group-append">
+                        <button class="btn btn-outline-secondary searchBtn" type="submit" id="button-addon2" aria-label="Search" value="Search"><i class="fa fa-search" aria-hidden="true"></i> Search</button>
+                          <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#filterModal" id="filterBtnSmall"><i class="fa fa-filter" aria-hidden="true"></i> Filter</button>
+                      </div>
+                    </div>
+                    
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <button type="button" class="btn btn-primary w-100" data-toggle="modal" data-target="#filterModal" id="filterBtnBig">
+                        <i class="fa fa-filter" aria-hidden="true"></i> Filter</button>
+                        <div class="btn-group w-100" id="viewBtns" role="group" >
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal" id="viewResults">View Results</button>  
+                            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal" id="viewMap">View Map</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                <!-- Search Results Row-->
+                    <div id="results-box">
+                    {% for result in object_list %}
+                        <a href="{% url 'event_page' result.object.id %}"> 
+                        <div class="card w-100 event-box">
+                          <div class="card-body row">
+                            <div class="col-lg-6">
+                                <h5 class="card-title">{{ result.object.title }}</h5>
+                                <h6 class="card-subtitle mb-2 text-muted">{{ result.object.user_id.org_name }}</h6>
+                            </div>
+                            <div class="col-lg-6 right-info">
+                                    <!--Merged from index, makes only activity categories show-->
+                                <div class="activities-badges mb-2">
+                                    {% for t in result.object.categories.all %}
+                                        {% if t.id <= 18 %}
+                                            <span class="badge badge-info">
+                                            {{ t }}
+                                            </span>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                                <h6 class="card-subtitle mb-2 text-muted"><i class="fa fa-map-marker" aria-hidden="true"></i> {{ result.object.address }}</h6>
+                            </div>
+                          </div>
+                        </div>
+                        </a>   
+                    {% endfor %}
+                    </div>
+
+                </div>
+                </div>
+            <div class="col-md-6">
+            <!-- map column-->
+                <div id="mapid"></div>
+            </div>
+        </div> <!-- main row-->
+
+        <!--Filter Modal-->
+        <div class="modal fade" id="filterModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Search Filters</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="accordion" id="accordionExample">
+                <div class="card">
+                    <div class="card-header" id="headingActivity">
+                        <h2 class="mb-0"><button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseActivity" aria-expanded="false" aria="" controls="collapseActivity">Activity</button></h2></div>
+                    <div id="collapseActivity" class="collapse" data-parent="#accordionExample" style="">
+                        <div class="card-body">
+                            {{ form.activities }}
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingTransportation">
+                        <h2 class="mb-0"><button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTransportation" aria-expanded="true" aria="" controls="collapseTransportation">Transportation</button></h2></div>
+                    <div id="collapseTransportation" class="collapse" data-parent="#accordionExample">
+                        <div class="card-body">
+                            {{ form.transportations }}
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingGrades">
+                        <h2 class="mb-0"><button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseGrades" aria-expanded="true" aria="" controls="collapseGrades">Grades Served</button></h2></div>
+                    <div id="collapseGrades" class="collapse" data-parent="#accordionExample">
+                        <div class="card-body">
+                            {{ form.grades }}
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingGender">
+                        <h2 class="mb-0"><button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseGender" aria-expanded="true" aria="" controls="collapseGender">Gender</button></h2></div>
+                    <div id="collapseGender" class="collapse" data-parent="#accordionExample">
+                        <div class="card-body">
+                            {{ form.genders }}
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingDistance">
+                        <h2 class="mb-0"><button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseDistance" aria-expanded="true" aria="" controls="collapseDistance">Distance</button></h2></div>
+                    <div id="collapseDistance" class="collapse" data-parent="#accordionExample">
+                        <div class="card-body">
+                            <input class="form-control form-control-sm distance-input" type="text" placeholder="From Address...">
+                            <!--put distance here-->
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingFees">
+                        <h2 class="mb-0"><button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFees" aria-expanded="true" aria="" controls="collapseFees">Fees</button></h2></div>
+                    <div id="collapseFees" class="collapse" data-parent="#accordionExample">
+                        <div class="card-body">
+                            {{ form.fees }}
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header" id="headingTiming">
+                        <h2 class="mb-0"><button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTiming" aria-expanded="true" aria="" controls="collapseTiming">Timing</button></h2></div>
+                    <div id="collapseTiming" class="collapse" data-parent="#accordionExample">
+                        <div class="card-body">
+                            {{ form.timings }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <div class="btn-group col-12" role="group" >
+                    <button type="button" class="btn btn-outline-danger" id="clearFilters" data-dismiss="modal">Clear Filters</button>  
+                    <button type="button" class="btn btn-outline-success" data-dismiss="modal">Apply Filters</button>
+                </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </form>
+</div>
+<!--Leaflet JS-->
+<script src="https://unpkg.com/leaflet@1.5.1/dist/leaflet.js"
+   integrity="sha512-GffPMF3RvMeYyc1LWMHtK8EbPv0iNZ8/oTtHPx9/cc2ILxQ+u905qIwdpULaqDkyBKgOaB57QTMg7ztg8Jm2Og=="
+   crossorigin=""></script>
+
+<!--Custom page JS-->
+<script>
+    //Clicking on an event opens the event page
+    $('.event-box').hover(
+       function(){ $(this).addClass('border-info') },
+       function(){ $(this).removeClass('border-info') }
+    ).click(function() {
+      window.location = "index.php"
+    });
+    //Filter Buttons
+    var clearBtn = document.getElementById('clearFilters');
+    clearBtn.onclick= function(){
+        var items = $(".accordion [type='checkbox']")
+        for (var i = 0; i < items.length; i++) {
+            if (items[i].type == 'checkbox')
+                items[i].checked = false;
+        }
+        //show and hide alert for clear filters
+        $(".filter-alert").show()
+        setTimeout(function() {
+            $(".filter-alert").hide();
+        }, 2000);
+    }
+    
+    //View Buttons on Mobile
+    document.getElementById('viewMap').onclick = function(){
+        $("#viewMap").removeClass("btn-outline-secondary").addClass("btn-secondary");
+        $("#viewResults").removeClass("btn-secondary").addClass("btn-outline-secondary");
+        $("#results-box").css('visibility', 'hidden');
+        $("#results-box").css('height', '0px');
+        $("#mapid").css('visibility', 'visible');
+        $("#mapid").css('height', '600px');
+    }
+    
+    document.getElementById('viewResults').onclick = function(){
+         $("#viewResults").removeClass("btn-outline-secondary").addClass("btn-secondary");
+        $("#viewMap").removeClass("btn-secondary").addClass("btn-outline-secondary");
+        $("#mapid").css('visibility', 'hidden');
+        $("#mapid").css('height', '0px');
+        $("#results-box").css('visibility', 'visible');
+        $("#results-box").css('height', '600px');
+    }
+    
+
+    //Leaflet Code
+    //init
+    function initMap(){
+        var mymap = L.map('mapid').setView([43.0846, -77.6743], 13);
+        L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+            maxZoom: 18,
+            id: 'mapbox.streets',
+            accessToken: 'sk.eyJ1IjoibGRpZG9uYXRvIiwiYSI6ImNrMTdzdmN4YTFqODgzbnBrOHB4ZzJ1dzQifQ.T7D-X5eab-y3J-KIu_WTBw'
+        }).addTo(mymap);
+
+        //markers
+
+        //Merged from index, plots all events on map
+        {% for lat, lng, html_string in zip_table %}
+        var marker = L.marker([{{ lat }},  {{ lng }}]).addTo(mymap);
+        marker.bindPopup("<div class='leafeventPopup'>{{ html_string | safe }}</div>").openPopup();
+        {% endfor %}
+    }
+    initMap();
+
+</script>
+{% include "footer.php" %}

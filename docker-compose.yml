@@ -1,22 +1,25 @@
 version: '3'
 services:
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: Grasa-Django-App
+    build: .
+    restart: always
+    depends_on:
+      - db
     ports:
-      - 80:8000
-      - 443:443
+      - 8000:8000
+    volumes:
+      - ./grasa_event_locator:/app/grasa_event_locator:z
   db:
     image: "mariadb:10.1"
-    container_name: db
-    volumes:
-      - "~/.cache/django-rit-grasa-db:/var/lib/mysql:z"
     ports:
       - 3306:3306
+    volumes:
+      - djangograsa_db:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=djangoGrasa2019
       - MYSQL_DATABASE=grasa_event_locator
       - MYSQL_USER=grasaadmin
       - MYSQL_PASSWORD=djangoGrasa2019
+volumes:
+  djangograsa_db:
+

@@ -16,6 +16,22 @@ For more information, see the `repo on GitHub <https://github.com/jwflory/django
 
 .. toctree::
     :maxdepth: 2
+    :name: howto
+    :caption: Howto articles
+    :glob:
+
+    howto/*
+
+.. toctree::
+    :maxdepth: 2
+    :name: development
+    :caption: Development
+    :glob:
+
+    dev/*
+
+.. toctree::
+    :maxdepth: 2
     :name: api
     :caption: API:
     :glob:
