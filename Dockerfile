@@ -1,9 +1,13 @@
-# Local development container. Includes development dependencies.
-# Not to be used in production environment (yet).
-FROM python:3.6-stretch
+# Local development container.
+# Includes development dependencies. Django runs with development settings.
+FROM python:3.9-bullseye
 
+ENV DJANGO_SETTINGS_MODULE=grasa_event_locator.settings.development
+
+RUN mkdir /app
 WORKDIR /app
-COPY . /app
+COPY Pipfile /app
+COPY Pipfile.lock /app
 
 RUN apt-get --yes update \
     && apt-get --yes upgrade \
@@ -11,6 +15,8 @@ RUN apt-get --yes update \
 
 RUN pipenv install --system --deploy --dev
 
+COPY . /app
+
 EXPOSE 8000
 
-CMD ["python3", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]

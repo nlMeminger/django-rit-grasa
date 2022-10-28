@@ -1,0 +1,54 @@
+{% include "header.html" %}
+<div class="container event-container">
+    <div class="row">
+
+        <div class="col-sm-8">
+            <h1>{{ event.title }}</h1>
+            <h4 class="text-muted">{{ event.user_id.org_name }}</h4>
+            <div class="activity-badges">
+            {% for f in topic_list %}
+                <span class="badge badge-info card-title">{{ f }}</span>
+            {% endfor %}
+            </div>
+            <p class="text-break"><pre>{{ event.content }}</pre></p>
+
+            <h4>Location:</h4>
+            <p>
+            {% if event.address %}
+                <a target="_blank" href="https://maps.google.com/?q={{ event.address }}">{% for i in address %}{{ i }} {% endfor %} <i class="fa fa-external-link" aria-hidden="true"></i></a>
+            {% else %}
+                <a>Location Not Provided</a>
+            {% endif %}
+            </p>
+
+            <p><h4>Contact Information: </h4><p><i class="fa fa-user fa-fw" aria-hidden="true"></i> {{ event.contact_name }} <br><i class="fa fa-envelope fa-fw" aria-hidden="true"></i> {{ event.contact_email }} <br><i class="fa fa-phone fa-fw" aria-hidden="true"></i> {{ event.contact_phone }}</p>
+
+
+        </div>
+        <div class="col-sm-4">
+            <ul class="list-group">
+              <li class="list-group-item"><b>Transportation: </b> {{ transportation_list_pub}}</li>
+              <li class="list-group-item"><b>Grades: </b> {{ grades_list_pub }} </li>
+              <li class="list-group-item"><b>Gender: </b> {{ gender_list_pub }}</li>
+              {% if event.fees %}
+                <li class="list-group-item"><b>Fees: </b> ${{ fees }}</li>
+              {% else %}
+                <li class="list-group-item"><b>Fees: </b> Free</li>
+              {% endif %}
+              <li class="list-group-item"><b>Timing: </b> {{ timing_list_pub }}</li>
+                  {% if event.website %}
+                  <li class="list-group-item"><a target="_blank" href="{{ event.website }}"><i class="fa fa-globe fa-fw" aria-hidden="true"></i> {{ event.website }}</a>
+                </li>
+                  {% else %}
+                    <li class="list-group-item ">
+                        <i class="fa fa-globe fa-fw" aria-hidden="true"></i> Website Not Provided
+                    </li>
+                  {% endif %}
+            </ul>
+        </div>
+
+    </div>
+</div>
+
+
+{% include "footer.html" %}

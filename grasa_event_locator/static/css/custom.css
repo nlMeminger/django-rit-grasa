@@ -7,6 +7,13 @@ html {
 body{
     margin-bottom: 60px;
 }
+
+pre {
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  word-break: break-word!important;
+  overflow-wrap: break-word!important;
+}
+
 .twentyblock{
     height: 20px;
 }
@@ -21,7 +28,7 @@ body{
     height: 70px;
 }
 .footer-nav{
-    float: none; 
+    float: none;
     margin: 0 auto;
 }
 .footer {
@@ -45,8 +52,8 @@ body{
 }
 /*Leaflet Map Styles*/
 #mapid{
-    height: 600px; 
-    width: 100%; 
+    height: 74vh;
+    width: 100%;
 }
 
 .accordion .card-header {
@@ -63,13 +70,13 @@ body{
     padding: 5px;
 }
 .accordion .card-header button.btn:after {
-    font-family: 'FontAwesome';  
+    font-family: 'FontAwesome';
     content: "\f068";
-    float: right; 
+    float: right;
 }
 .accordion .card-header button.btn.collapsed:after {
     /* symbol for "collapsed" panels */
-    content: "\f067"; 
+    content: "\f067";
 }
 .accordion .form-check-label{
     padding-bottom: 5px;
@@ -136,7 +143,7 @@ body{
 }
 #results-box{
     width:100%;
-    height: 545px;
+    height: 67vh;
     overflow-y: scroll;
 }
 #results-box .card{
@@ -202,47 +209,12 @@ body{
   background-color: #4CAF50;
 }
 
-/*Reset Password page styles*/
-
-.form-reset {
-  width: 50%;
-  max-width: 330px;
-  padding: 15px;
-  margin: 0 auto;
-}
-
-.form-reset .form-control:focus {
-  z-index: 2;
-}
-
-/*Change Password page styles*/
-
-.form-changePW {
-  width: 50%;
-  max-width: 330px;
-  padding: 15px;
-  margin: 0 auto;
-}
-
-.form-changePW .form-control:focus {
-  z-index: 2;
-}
-
-.form-changePW input[type="password"] {
-  margin-bottom: -1px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-}
-
-
-/* Style the submit button */
-.form-changePW button[type=submit] {
-  margin-bottom: 10px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-  
-  background-color: #4CAF50;
-  color: white;
+/*reset password*/
+.form-changePW{
+    padding: 10px;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 500px;
 }
 
 /* The message box is shown when the user clicks on the password field */
@@ -265,23 +237,10 @@ body{
   color: green;
 }
 
-.valid:before {
-  position: relative;
-  left: -35px;
-  content: "&#10004;";
-}
-
 /* Add a red text color and an "x" icon when the requirements are wrong */
 .invalid {
   color: red;
 }
-
-.invalid:before {
-  position: relative;
-  left: -35px;
-  content: "&#10006;";
-}
-
 
 /*Registration page styles*/
 .regHelpBtn{
@@ -305,6 +264,9 @@ body{
 
 .form-reset, .form-signin{
     padding-top: 50px;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 330px;
 }
 
 /*Provider Page Styles*/
@@ -320,7 +282,7 @@ body{
 }
 .program-header{
     padding-top:50px;
-    padding-left: 10px;  
+    padding-left: 10px;
     padding-bottom: 20px;
 }
 .changeNameInput, .changeEmailInput{
@@ -377,6 +339,9 @@ label.pl-2.checkbox{
 .custom-select{
     text-overflow: ellipsis;
 }
+.dropdown-toggle{
+    white-space: normal !important;
+}
 /*makes footer not cover content on mobile*/
 @media (max-width: 576px){
     body {
@@ -406,9 +371,9 @@ label.pl-2.checkbox{
 
 /*Styles for About section*/
 .about-container {
-	text-align: left;    
+	text-align: left;
 	border-radius: 5px;
-	background-color: #EFFBEF;      
+	background-color: #EFFBEF;
     padding-left:20px;
 	padding-right:20px;
 	padding-top:20px;
@@ -425,14 +390,14 @@ label.pl-2.checkbox{
 
 .about-row {
 	background: #EFFBEF;
-	
+
 }
 .about-row span.subhead {
 	font-size:1.5em;
 	text-align:center;
 	display:block;
 	position:relative;
-	
+
 }
 
 #about {
@@ -480,7 +445,7 @@ span.subhead::before, span.subhead::after {
 
 /* Styles for Social Media icons on About & Contact page */
 
-.social-container {	
+.social-container {
     padding: 10px;
     padding-top: 20px;
     text-align: center;
@@ -531,9 +496,9 @@ span.subhead::before, span.subhead::after {
 	text-align:center;
 }
 
-/*Styles for alert messages for register.php and login.php*/
+/*Styles for alert messages for register.html and login.html*/
 .alert-msg {
-	
+
 	color: red;
 	padding-top: none;
 }
@@ -553,7 +518,7 @@ span.subhead::before, span.subhead::after {
 	margin-top:40px;
 }
 
-.register-contact-body{	
+.register-contact-body{
     padding-left:50px;
 	padding-right:20px;
 	padding-top:20px;

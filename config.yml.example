@@ -1,6 +1,24 @@
 %YAML 1.2
 ---
 
+# Note: The example config file ships a working config for local development
+# in Docker Compose only.
+
+
+###############################################################################
+#                                                                             #
+#                                                                             #
+#                                  SECRETS                                    #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+#                            ##### database #####
+# Edit database connectivity settings. Default config in example uses the
+# docker-compose defaults for local development. For local development, keep
+# these values as specified. For a production installation, change these to
+# point at your hosted database. See install documentation for more details.
+
 database:
   host: "db"
   port: "3306"
@@ -8,6 +26,99 @@ database:
   password: "djangoGrasa2019"
   db: "grasa_event_locator"
 
-users:
-  admins:
-    - "admin@example.com"
+#                        ##### mapquest_api_key #####
+# MapQuest Geocoding API key. This must be requested from the MapQuest API.
+# Note there are limitations to what is permitted under the Free Tier. As more
+# search queries are run, be aware of the free limitations of this resource.
+#
+# https://business.mapquest.com/products/geocoding-api/
+
+mapquest_api_key: "nEoQhpyWJ6K3nx0wsur3eVa4oYAfhvhY"
+
+#                          ##### outgoing_smtp #####
+# Edit settings for outgoing SMTP mail server. All emails sent by this web
+# application will be sent through this mail server. For production, this
+# should be a production SMTP server. For development, this can be the
+# credentials for a personal email account that supports SSL/TLS.
+
+outgoing_smtp:
+  host: "smtp.mail.yahoo.com"
+  port: 465
+  username: "grasatest@yahoo.com"
+  password: "duhnsentqrxgadfh"
+
+#                           ##### secret_key #####
+# Specify a secret key to be used for encryption. This string should be
+# randomly generated and kept secure.
+# https://docs.djangoproject.com/en/2.2/ref/settings/#std:setting-SECRET_KEY
+
+secret_key: "TeamPlatypus2191"
+
+
+###############################################################################
+#                                                                             #
+#                                                                             #
+#                                   EMAILS                                    #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+#                           ##### admin_email #####
+# Specify an email address for the first admin user. A user with admin
+# capabilities will be created with the specified email address and a default
+# password if and ONLY if no other admin users exist in the database. Make sure
+# to change the password from the default after logging in.
+
+admin_email: "admin@example.com"
+
+#                         ##### sysadmin_email #####
+# Specify an email address for logging notifications and error messages. This
+# address is intended for receipt of technical debugging information related to
+# the site. It is not recommended to set this to an individual person's email
+# inbox.
+
+sysadmin_email: "logging@example.com"
+
+
+###############################################################################
+#                                                                             #
+#                                                                             #
+#                              SITE APPEARANCE                                #
+#                                                                             #
+#                                                                             #
+###############################################################################
+
+#                             ##### https #####
+# Whether external URLs (e.g. used in emails) write emails with "http://" or
+# "https://" prefixes. Set to yes for HTTPS, no for HTTP. Default is no.
+
+https: no
+
+#                      ##### organization_contact #####
+# Change the contact information for the organization in the footer of the
+# website. This information should always remain accurate and correct.
+
+organization_contact:
+  address:
+    street_num: "500"
+    street_name: "East Ave"
+    city: "Rochester"
+    state: "NY"
+    zip: "14607"
+  hours:
+    weekdays: "9am – 5pm"
+    weekends: "closed"
+  phone_num: "(585) 271-4100"
+  email: "racf@racf.org"
+  social_media:
+    facebook: "https://www.facebook.com/GreaterRochesterAfterSchoolAlliance/"
+    twitter: "https://twitter.com/GRASArochester"
+    linkedin: "https://www.linkedin.com/company/rochester-area-community-foundation/"
+  website: "https://www.monroecounty.gov"
+
+#                           ##### site_name #####
+# Creates a resolvable host name used across the website universally. The site
+# name set here reappears multiple times across the project. It is important
+# for this to be an existing DNS record.
+
+site_name: "localhost:8000"

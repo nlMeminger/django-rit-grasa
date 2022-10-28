@@ -1,0 +1,5 @@
+Hello,
+
+The edit to your event, "{{ program.title }}", is approved! See it live below:
+
+http{% if config.https %}s{% endif %}://{{ config.site_name }}/event/{{ event_id }}

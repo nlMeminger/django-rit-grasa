@@ -1,8 +1,8 @@
-##################################
-GRASA Events Locator documentation
-##################################
+#################################
+GRASA Event Locator documentation
+#################################
 
-This is the main page for the GRASA Events Locator documentation.
+This is the main page for the GRASA Event Locator documentation.
 Other pages are available for you to navigate and explore below.
 For more information, see the `repo on GitHub <https://github.com/jwflory/django-rit-grasa>`_.
 
@@ -15,34 +15,27 @@ For more information, see the `repo on GitHub <https://github.com/jwflory/django
     about/*
 
 .. toctree::
+    :maxdepth: 1
+    :name: user
+    :caption: User Documentation:
+
+    user/base-system
+    user/events-system
+    user/search-system
+
+.. toctree::
     :maxdepth: 2
-    :name: howto
-    :caption: Howto articles
+    :name: admin
+    :caption: Admin Documentation:
     :glob:
 
-    howto/*
+    admin/*
 
 .. toctree::
     :maxdepth: 2
     :name: development
-    :caption: Development
+    :caption: Developer Documentation:
     :glob:
 
     dev/*
 
-.. toctree::
-    :maxdepth: 2
-    :name: api
-    :caption: API:
-    :glob:
-
-    api/*
-
-
-******************
-Indices and tables
-******************
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`

@@ -1,9 +1,8 @@
-from django import forms
 from .forms import *
-from haystack.forms import SearchForm
-
+from django import forms
 from haystack import connections
 from haystack.constants import DEFAULT_ALIAS
+from haystack.forms import SearchForm
 from haystack.query import EmptySearchQuerySet, SearchQuerySet
 from haystack.utils import get_model_ct
 from haystack.utils.app_loading import haystack_get_model
@@ -16,19 +15,22 @@ activityList = [
     ("Community Service / Service Learning", "Community Service / Service Learning"),
     ("Entrepreneurship / Leadership", "Entrepreneurship / Leadership"),
     ("Financial Literacy", "Financial Literacy"),
-    ("Health & Wellness", "Health & Wellness"),
+    ("Health and Wellness", "Health and Wellness"),
     ("Media Technology", "Media Technology"),
     ("Mentoring", "Mentoring"),
-    ("Nature & the Environment", "Nature & the Environment"),
+    ("Nature / Environment", "Nature / Environment"),
     ("Play", "Play"),
     ("Public Speaking", "Public Speaking"),
     ("Social and Emotional Learning (SEL)", "Social and Emotional Learning (SEL)"),
     ("Sports and Recreation", "Sports and Recreation"),
-    ("STEM", "STEM"),
+    (
+        "Science, Tech, Engineering, Math (STEM)",
+        "Science, Tech, Engineering, Math (STEM)",
+    ),
     ("Tutoring", "Tutoring"),
     ("Other", "Other"),
 ]
-transportationList = [("Provided", "Provided"), ("Not-Provided", "Not-Provided")]
+transportationList = [("Provided", "Provided")]
 gradesList = [
     ("K-3rd", "K-3rd"),
     ("K-5th", "K-5th"),
@@ -39,7 +41,6 @@ gradesList = [
 genderList = [
     ("Male-Only", "Male-Only"),
     ("Female-Only", "Female-Only"),
-    ("Non-Specific", "Non-Specific"),
 ]
 feesList = [
     ("Free", "Free"),
@@ -54,7 +55,7 @@ timingList = [
     ("Evenings", "Evenings"),
     ("Weekends", "Weekends"),
     ("Summer", "Summer"),
-    #Refactored to "Other Time" to avoid conflicts with activities "Other"
+    # Refactored to "Other Time" to avoid conflicts with activities "Other"
     ("Other-Time", "Other-Time"),
 ]
 
@@ -134,6 +135,7 @@ class grasaSearchForm(SearchForm):
             sqs = super(grasaSearchForm, self).search()
             print(sqs.count())
 
+        sqs = sqs.order_by("title")
         selectedActivities = self.cleaned_data["activities"]
         for activity in activityList:
             for selectedActivity in selectedActivities:
@@ -145,7 +147,7 @@ class grasaSearchForm(SearchForm):
         for transportation in transportationList:
             for selectedTransportation in selectedTransportations:
                 if transportation[0] == selectedTransportation:
-                    print('inside transport filter')
+                    print("inside transport filter")
                     print(transportation[0])
                     print(selectedTransportation)
                     sqs = sqs.filter(content=transportation[0])
@@ -162,7 +164,6 @@ class grasaSearchForm(SearchForm):
                 if gender[0] == selectedGender:
                     sqs = sqs.filter(content=gender[0])
 
-        # Needs changes
         selectedFees = self.cleaned_data["fees"]
         for selectedFee in selectedFees:
             # These need to be specially written since they aren't stored as a range in the DB
